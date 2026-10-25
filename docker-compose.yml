@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:17.11-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:?Set DATABASE_NAME in .env}
+      POSTGRES_USER: ${DATABASE_USER:?Set DATABASE_USER in .env}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+    ports:
+      - '127.0.0.1:${DATABASE_PORT:-5432}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  postgres-test:
+    image: postgres:17.11-alpine
+    profiles: [test]
+    environment:
+      POSTGRES_DB: ${TEST_DATABASE_NAME:?Set TEST_DATABASE_NAME in .env}
+      POSTGRES_USER: ${TEST_DATABASE_USER:?Set TEST_DATABASE_USER in .env}
+      POSTGRES_PASSWORD: ${TEST_DATABASE_PASSWORD:?Set TEST_DATABASE_PASSWORD in .env}
+    ports:
+      - '127.0.0.1:${TEST_DATABASE_PORT:-5433}:5432'
+    volumes:
+      - postgres-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+  postgres-test-data:
