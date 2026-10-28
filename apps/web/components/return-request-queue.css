@@ -1,0 +1,41 @@
+/* Only the return request register uses this responsive table/card layout. */
+.return-queue-theme {
+  min-width: 0;
+}
+.return-queue-theme :is(a, button):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+@media (max-width: 1100px) {
+  .return-queue-table,
+  .return-queue-table tbody {
+    display: block;
+  }
+  .return-queue-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+  .return-queue-table tbody {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+  }
+  .return-queue-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .return-queue-table tbody td:nth-child(1),
+  .return-queue-table tbody td:nth-child(2),
+  .return-queue-table tbody td:nth-child(5) {
+    grid-column: 1/-1;
+  }
+}

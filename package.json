@@ -8,16 +8,24 @@
     "pnpm": "10.34.8"
   },
   "scripts": {
-    "dev": "pnpm --parallel --filter @furniture-delivery/api --filter @furniture-delivery/web dev",
+    "dev": "pnpm --filter @furniture-delivery/contracts build && pnpm --parallel --filter @furniture-delivery/api --filter @furniture-delivery/web dev",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm --filter @furniture-delivery/api --filter @furniture-delivery/web test",
-    "test:integration": "pnpm --filter @furniture-delivery/api test:integration",
+    "test": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api --filter @furniture-delivery/web test",
+    "test:integration": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api test:integration",
     "build": "pnpm -r build",
     "db:migrate": "pnpm --filter @furniture-delivery/api db:migrate",
-    "db:seed": "pnpm --filter @furniture-delivery/api db:seed"
+    "db:seed": "pnpm --filter @furniture-delivery/api db:seed",
+    "storage:inspect": "pnpm --filter @furniture-delivery/api storage:inspect",
+    "demo:prepare": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api demo:prepare",
+    "demo:start": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api demo:start",
+    "demo:stop": "pnpm --filter @furniture-delivery/api demo:stop",
+    "demo:cleanup": "pnpm --filter @furniture-delivery/api demo:cleanup",
+    "demo:verify": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api demo:verify",
+    "test:proxy": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api test:proxy",
+    "test:load": "pnpm --filter @furniture-delivery/contracts build && pnpm --filter @furniture-delivery/api test:load"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -25,5 +33,10 @@
     "globals": "16.5.0",
     "prettier": "3.6.2",
     "typescript-eslint": "8.72.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nestjs/platform-express>multer": "2.5.0"
+    }
   }
 }

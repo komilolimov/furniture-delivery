@@ -54,8 +54,8 @@ describe('team management form', () => {
         }),
       ),
     );
-    expect(await screen.findByRole('heading', { name: 'New team' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /New team/ })).toHaveAttribute(
+    expect(await screen.findByRole('link', { name: 'New team' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'New team' })).toHaveAttribute(
       'href',
       '/backoffice/crews/crew-1',
     );

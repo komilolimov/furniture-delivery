@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
 import { ConnectionStatus } from '../components/connection-status';
+import { ServiceBackButton } from '../components/service-back-button';
+import { ServiceStatusNavigation } from '../components/service-status-navigation';
 
 export default function HomePage() {
   return (
@@ -10,10 +13,17 @@ export default function HomePage() {
           </span>
           <span>Furniture Delivery</span>
         </a>
-        <a className="check-button" href="/login">
-          Sign in
-        </a>
+        <div className="tw:flex tw:flex-wrap tw:items-center tw:gap-2">
+          <ServiceBackButton />
+          <a className="check-button" href="/login">
+            Sign in
+          </a>
+        </div>
       </header>
+
+      <Suspense fallback={null}>
+        <ServiceStatusNavigation />
+      </Suspense>
 
       <section className="intro" aria-labelledby="page-title">
         <p className="eyebrow">Delivery &amp; home assembly</p>

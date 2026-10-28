@@ -1,3 +1,4 @@
+import { markRealtime } from '../realtime/post-commit';
 import { createHash, randomBytes } from 'node:crypto';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import type { AuthUser } from '@furniture-delivery/contracts';
@@ -69,12 +70,17 @@ export class AuthService {
       const createdAt = new Date();
       const expiresAt = new Date(createdAt.getTime() + this.config.sessionTtlSeconds * 1000);
       if (previousToken) {
+        const previousSession = await manager
+          .getRepository(AuthSession)
+          .findOneBy({ tokenHash: hashSessionToken(previousToken), revokedAt: IsNull() });
         await manager
           .getRepository(AuthSession)
           .update(
             { tokenHash: hashSessionToken(previousToken), revokedAt: IsNull() },
             { revokedAt: new Date() },
           );
+        if (previousSession)
+          markRealtime(manager, { backoffice: [], sessionId: previousSession.id });
       }
       await manager
         .getRepository(AuthSession)
@@ -102,8 +108,11 @@ export class AuthService {
 
   async logout(sessionId: string): Promise<void> {
     const dataSource = await this.database.getDataSource();
-    await dataSource
-      .getRepository(AuthSession)
-      .update({ id: sessionId, revokedAt: IsNull() }, { revokedAt: new Date() });
+    await dataSource.transaction(async (manager) => {
+      const result = await manager
+        .getRepository(AuthSession)
+        .update({ id: sessionId, revokedAt: IsNull() }, { revokedAt: new Date() });
+      if (result.affected) markRealtime(manager, { backoffice: [], sessionId });
+    });
   }
 }

@@ -1,0 +1,86 @@
+.acceptance-panel {
+  display: grid;
+  gap: 1rem;
+  margin-block: 1rem;
+  min-width: 0;
+}
+.acceptance-snapshot {
+  overflow-wrap: anywhere;
+}
+.acceptance-snapshot p,
+.acceptance-slot p {
+  white-space: pre-wrap;
+}
+.acceptance-team {
+  border-block-start: 1px solid var(--line, #d8dedb);
+  padding-block: 1rem;
+}
+.acceptance-team.own-team {
+  border-inline-start: 4px solid #285b50;
+  padding-inline-start: 1rem;
+}
+.acceptance-slot {
+  border: 1px solid var(--line, #d8dedb);
+  border-radius: 0.6rem;
+  padding: 1rem;
+  min-width: 0;
+}
+.acceptance-editor {
+  display: grid;
+  gap: 0.8rem;
+  margin-block: 1rem;
+}
+.acceptance-editor label {
+  display: grid;
+  gap: 0.35rem;
+}
+.acceptance-editor .checkbox-field {
+  display: flex;
+}
+.signature-canvas {
+  display: block;
+  width: 100%;
+  height: 13.75rem;
+  background: #fff;
+  border: 1px solid #66776f;
+  border-radius: 0.4rem;
+  touch-action: none;
+}
+.signature-pad {
+  min-width: 0;
+}
+.signature-preview {
+  display: block;
+  width: min(100%, 36rem);
+  height: auto;
+  background: #fff;
+  border: 1px solid #a5b6ad;
+  margin-block: 0.8rem;
+}
+.signature-modal {
+  width: min(54rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  border: 1px solid #748b80;
+  border-radius: 0.8rem;
+  padding: 1.2rem;
+  overflow-y: auto;
+  color: inherit;
+  background: #fff;
+}
+.signature-modal::backdrop {
+  background: #e8eeeb;
+}
+.acceptance-history summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+@media (max-width: 600px) {
+  .signature-modal {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+    padding: 0.8rem;
+  }
+  .acceptance-slot {
+    padding: 0.8rem;
+  }
+}

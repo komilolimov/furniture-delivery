@@ -1,0 +1,140 @@
+/* Only the team's existing execution commands; auth, payloads and receipts stay unchanged. */
+.crew-command-modern {
+  display: grid;
+  min-width: 0;
+  gap: 1.25rem;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: #18372e;
+}
+.crew-command-modern .crew-command-heading {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+.crew-command-modern .crew-command-heading > div {
+  min-width: 0;
+}
+.crew-command-modern .crew-command-symbol {
+  display: flex;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9e5cf;
+  border-radius: 12px;
+  background: #edf4e6;
+  color: #60834b;
+}
+.crew-command-modern .crew-command-kicker {
+  margin: 0 0 4px;
+  color: #7a886e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.crew-command-modern h3 {
+  margin: 0;
+  color: #18372e;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.crew-command-modern > p {
+  margin: 0;
+  color: #65716a;
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.crew-command-modern .crew-command-help {
+  border: 1px solid #e0e7d8;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #f5f8ef;
+  color: #65745e;
+}
+.crew-command-modern fieldset {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+.crew-command-modern legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 18px;
+  border-top: 1px solid #e2e8db;
+  padding: 18px 0 0;
+  color: #486540;
+  font-size: 12px;
+  font-weight: 600;
+}
+.crew-command-modern legend svg {
+  flex-shrink: 0;
+}
+.crew-command-modern label {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+  color: #52654f;
+  font-size: 12px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+.crew-command-modern .checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  padding: 13px;
+  border: 1px solid #dce5d4;
+  border-radius: 12px;
+  background: #f4f8ee;
+}
+.crew-command-modern input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin: 1px 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  accent-color: #416b43;
+}
+.crew-command-modern .button-row {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+.crew-command-modern .conflict-notice,
+.crew-command-modern .form-error {
+  margin: 0;
+  border: 1px solid #ead7cc;
+  border-radius: 12px;
+  padding: 14px;
+  background: #fcf3ec;
+  color: #92583f;
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.crew-step-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .crew-command-modern {
+    padding: 0;
+  }
+}

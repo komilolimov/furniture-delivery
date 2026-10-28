@@ -1,0 +1,72 @@
+.return-request-list {
+  display: grid;
+  gap: 1rem;
+}
+.return-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.return-plan {
+  display: grid;
+  gap: 1rem;
+  margin-block: 1rem;
+  min-width: 0;
+}
+.return-plan fieldset {
+  min-width: 0;
+  border: 1px solid var(--line, #d8dedb);
+  border-radius: 0.6rem;
+  padding: 1rem;
+}
+.return-plan legend {
+  font-weight: 700;
+  padding-inline: 0.3rem;
+}
+.return-scope-row {
+  display: grid;
+  gap: 0.7rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--line, #d8dedb);
+}
+.return-scope-row:last-child {
+  border-bottom: 0;
+}
+.return-scope-row label {
+  min-width: 0;
+}
+.return-plan input,
+.return-plan select,
+.return-plan textarea {
+  max-width: 100%;
+}
+.return-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+.return-attempt {
+  border-top: 1px solid var(--line, #d8dedb);
+  padding-block: 1rem;
+}
+.return-attempt summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.return-preview {
+  border: 1px solid #8ca99b;
+  background: #f4faf7;
+  border-radius: 0.6rem;
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.return-plan .button-row {
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .return-plan fieldset {
+    padding: 0.7rem;
+  }
+  .return-preview {
+    padding: 0.8rem;
+  }
+}

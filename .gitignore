@@ -1,6 +1,10 @@
 node_modules/
 .pnpm-store/
 .next/
+.next-test/
+.next-demo/
+.demo-runs/
+/storage/
 dist/
 build/
 coverage/

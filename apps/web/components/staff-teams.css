@@ -1,0 +1,30 @@
+/* Read-only staff roster and contact cards; no changes to backoffice editors. */
+.staff-teams-theme {
+  min-width: 0;
+}
+.staff-teams-theme :is(a, button, input):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+.staff-team-empty {
+  display: grid;
+  min-width: 0;
+  justify-items: center;
+  gap: 12px;
+  border: 1px dashed #dce5d4;
+  border-radius: 15px;
+  background: #f6f9f0;
+  padding: 28px 20px;
+  text-align: center;
+}
+.staff-team-empty > svg {
+  color: #8b9e7b;
+}
+.staff-team-empty p {
+  max-width: 360px;
+  margin: 0;
+  color: #7a886e;
+  font-size: 12px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,62 @@
+/* Only the task template directory and its editor use this scope. */
+.templates-theme {
+  min-width: 0;
+}
+.templates-theme :is(a, button):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+.templates-theme .form-error,
+.templates-theme .conflict-notice {
+  margin: 0;
+  border: 1px solid #ead7cc;
+  border-radius: 10px;
+  background: #fcf3ec;
+  padding: 14px;
+  color: #92583f;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.templates-theme .form-success {
+  margin: 0;
+  border: 1px solid #d4e4cb;
+  border-radius: 10px;
+  background: #eff6e9;
+  padding: 14px;
+  color: #3b6240;
+  font-size: 12px;
+  line-height: 1.75;
+}
+@media (max-width: 1000px) {
+  .task-template-table,
+  .task-template-table tbody {
+    display: block;
+  }
+  .task-template-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+  .task-template-table tbody {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+  }
+  .task-template-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .task-template-table tbody td:nth-child(1),
+  .task-template-table tbody td:nth-child(5) {
+    grid-column: 1/-1;
+  }
+}

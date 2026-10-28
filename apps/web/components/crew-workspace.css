@@ -1,0 +1,8 @@
+/* Crew list only. No viewport/canvas changes or global input resets. */
+.crew-workspace-theme {
+  min-width: 0;
+}
+.crew-workspace-theme :is(a, button, select):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}

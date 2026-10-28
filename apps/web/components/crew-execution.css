@@ -1,0 +1,113 @@
+.crew-work-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+.crew-work-cards .content-card h2 {
+  font-size: 1.3rem;
+}
+.crew-work-cards .primary-button {
+  display: inline-flex;
+  margin-top: 0.6rem;
+}
+.crew-assignment {
+  display: grid;
+  gap: 1.2rem;
+  min-width: 0;
+}
+.crew-assignment .content-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.crew-assignment h2 {
+  font-size: 1.25rem;
+}
+.crew-assignment .work-facts {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.work-facts dt {
+  color: var(--muted, #65746c);
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+.work-facts dd {
+  margin: 0;
+}
+.work-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.work-result-row {
+  padding: 1rem 0;
+  border-bottom: 1px solid #dbe2dc;
+}
+.work-result-row:last-child {
+  border-bottom: 0;
+}
+.work-result-row h3 {
+  font-size: 1rem;
+}
+.work-result-row .secondary-button {
+  margin-top: 0.4rem;
+}
+.crew-command {
+  padding: 1.2rem;
+  border: 1px solid #a5b8a9;
+  border-radius: 0.8rem;
+  background: #f4f7f2;
+  min-width: 0;
+}
+.crew-command fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.crew-command .button-row {
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.crew-command input,
+.crew-command select,
+.crew-command textarea {
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.crew-command input[type='checkbox'] {
+  width: auto;
+}
+.crew-command label {
+  display: grid;
+  gap: 0.4rem;
+}
+.crew-command .checkbox-field {
+  display: flex;
+  align-items: center;
+}
+.crew-assignment table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.crew-assignment th,
+.crew-assignment td {
+  text-align: left;
+  padding: 0.5rem 0.25rem;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .crew-assignment .content-card {
+    padding: 1rem;
+  }
+  .crew-command {
+    padding: 0.85rem;
+  }
+  .crew-assignment .button-row > button {
+    flex: 1 1 auto;
+  }
+}

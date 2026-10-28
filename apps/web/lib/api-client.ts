@@ -2,6 +2,13 @@ export class ApiError extends Error {
   constructor(
     public readonly status: number,
     message: string,
+    public readonly code?: string,
+    public readonly details?: Readonly<{
+      crewId?: string;
+      appointmentId?: string;
+      from?: string;
+      to?: string;
+    }>,
   ) {
     super(message);
     this.name = 'ApiError';
@@ -13,6 +20,7 @@ type ApiOptions<T> = {
   body?: unknown;
   signal?: AbortSignal;
   validate?: (value: unknown) => value is T;
+  timeoutMs?: number;
 };
 
 function errorMessage(status: number, body: unknown): string {
@@ -33,18 +41,21 @@ function errorMessage(status: number, body: unknown): string {
 export async function apiRequest<T>(path: string, options: ApiOptions<T> = {}): Promise<T> {
   const method = options.method ?? 'GET';
   const headers: Record<string, string> = { Accept: 'application/json' };
+  const multipart = typeof FormData !== 'undefined' && options.body instanceof FormData;
   if (method !== 'GET') headers['X-CSRF-Protection'] = '1';
-  if (options.body !== undefined) headers['Content-Type'] = 'application/json';
+  if (options.body !== undefined && !multipart) headers['Content-Type'] = 'application/json';
 
   try {
-    const timeout = AbortSignal.timeout(8_000);
+    const timeout = AbortSignal.timeout(options.timeoutMs ?? 8_000);
     const response = await fetch(`/api${path}`, {
       method,
       headers,
       credentials: 'same-origin',
       cache: 'no-store',
       signal: options.signal ? AbortSignal.any([options.signal, timeout]) : timeout,
-      ...(options.body !== undefined ? { body: JSON.stringify(options.body) } : {}),
+      ...(options.body !== undefined
+        ? { body: multipart ? (options.body as FormData) : JSON.stringify(options.body) }
+        : {}),
     });
     const body: unknown =
       response.status === 204 ? undefined : await response.json().catch(() => undefined);
@@ -55,7 +66,20 @@ export async function apiRequest<T>(path: string, options: ApiOptions<T> = {}): 
       if (response.status === 403 && typeof window !== 'undefined') {
         window.dispatchEvent(new Event('fd:permissions-changed'));
       }
-      throw new ApiError(response.status, errorMessage(response.status, body));
+      const metadata =
+        typeof body === 'object' && body !== null ? (body as Record<string, unknown>) : {};
+      const code =
+        typeof metadata.code === 'string' && /^[A-Z_]{1,64}$/.test(metadata.code)
+          ? metadata.code
+          : undefined;
+      const rawDetails =
+        typeof metadata.details === 'object' && metadata.details !== null
+          ? (metadata.details as Record<string, unknown>)
+          : {};
+      const details: { crewId?: string; appointmentId?: string; from?: string; to?: string } = {};
+      for (const key of ['crewId', 'appointmentId', 'from', 'to'] as const)
+        if (typeof rawDetails[key] === 'string') details[key] = rawDetails[key];
+      throw new ApiError(response.status, errorMessage(response.status, body), code, details);
     }
     if (response.status !== 204 && body === undefined)
       throw new ApiError(0, 'The service returned an invalid response.');

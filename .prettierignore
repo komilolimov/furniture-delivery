@@ -1,6 +1,9 @@
 node_modules
 .pnpm-store
 .next
+.next-test
+.next-demo
+.demo-runs
 dist
 coverage
 pnpm-lock.yaml

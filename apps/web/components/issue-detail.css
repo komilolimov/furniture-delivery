@@ -1,0 +1,68 @@
+/* Scope the existing shared command form's appearance to issue details only. */
+.issue-detail .evidence-form {
+  margin-block: 1.25rem 0;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid #dfe6d8;
+  border-radius: 0.85rem;
+  background: #f8faf5;
+}
+.issue-detail .evidence-form h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #254634;
+}
+.issue-detail .evidence-form label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #405c43;
+}
+.issue-detail .evidence-form textarea {
+  min-height: 110px;
+  padding: 0.8rem;
+  border: 1px solid #d8e1d1;
+  border-radius: 0.6rem;
+  background: white;
+  color: #18372e;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+.issue-detail .evidence-form textarea:focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 2px;
+}
+.issue-detail .evidence-form .field-help {
+  margin: 0;
+  color: #6b7862;
+  font-size: 0.7rem;
+  line-height: 1.75;
+}
+.issue-detail .evidence-form button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #193e30;
+  border-radius: 0.55rem;
+  background: #193e30;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.issue-detail .evidence-form button.secondary-button {
+  border-color: #d5dfd0;
+  background: white;
+  color: #294b39;
+}
+.issue-detail .evidence-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.issue-detail .evidence-form .form-actions {
+  margin: 0;
+  gap: 0.5rem;
+}

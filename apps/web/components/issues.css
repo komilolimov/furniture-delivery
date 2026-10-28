@@ -1,0 +1,41 @@
+/* Scoped to the backoffice issue register; crew layouts keep their own styles. */
+.issues-theme {
+  min-width: 0;
+  color: #18372e;
+}
+.issues-theme :is(a, button):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+@media (max-width: 1000px) {
+  .issues-directory-table,
+  .issues-directory-table tbody {
+    display: block;
+  }
+  .issues-directory-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+  .issues-directory-table tbody {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+  }
+  .issues-directory-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .issues-directory-table tbody td:nth-child(1),
+  .issues-directory-table tbody td:nth-child(5) {
+    grid-column: 1/-1;
+  }
+}

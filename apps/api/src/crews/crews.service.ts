@@ -1,3 +1,5 @@
+import { markRealtime } from '../realtime/post-commit';
+import { markCrew } from '../realtime/realtime-marks';
 import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import type {
   AuthUser,
@@ -16,6 +18,8 @@ import { CrewMember } from '../identity/crew-member.entity';
 import { ExternalParticipant } from '../identity/external-participant.entity';
 import { User } from '../identity/user.entity';
 import { Crew } from './crew.entity';
+import { CrewPlanningConfig } from '../planning/crew-planning-config.entity';
+import { defaultWorkingWindows } from '../planning/planning-defaults';
 
 export function mapCrew(crew: Crew): CrewSummary {
   return {
@@ -137,10 +141,21 @@ export class CrewsService {
   async create(input: CreateCrewRequest): Promise<string> {
     const source = await this.database.getDataSource();
     try {
-      const crew = await source
-        .getRepository(Crew)
-        .save(source.getRepository(Crew).create({ ...input, active: input.active ?? true }));
-      return crew.id;
+      return await source.transaction('READ COMMITTED', async (manager) => {
+        const crew = await manager.save(
+          Crew,
+          manager.create(Crew, { ...input, active: input.active ?? true }),
+        );
+        await manager.insert(CrewPlanningConfig, {
+          crewId: crew.id,
+          weeklyWindows: defaultWorkingWindows(),
+          travelBufferMinutes: 30,
+          version: 1,
+          updatedBy: null,
+        });
+        markRealtime(manager, { backoffice: ['crews', 'planning'] });
+        return crew.id;
+      });
     } catch (error) {
       conflict(error);
     }
@@ -160,6 +175,7 @@ export class CrewsService {
       const crew = await this.crew(manager, id);
       Object.assign(crew, input);
       await manager.save(Crew, crew);
+      markCrew(manager, id);
     });
   }
 
@@ -185,6 +201,7 @@ export class CrewsService {
         } else {
           await manager.insert(CrewMember, { userId, crewId, active: true });
         }
+        markCrew(manager, crewId, userId);
       });
     } catch (error) {
       conflict(error);
@@ -220,6 +237,7 @@ export class CrewsService {
         }
         membership.active = active;
         await manager.save(CrewMember, membership);
+        markCrew(manager, crewId, membership.userId);
       });
     } catch (error) {
       conflict(error);
@@ -237,6 +255,7 @@ export class CrewsService {
         email: input.email ?? null,
         active: input.active ?? true,
       });
+      markCrew(manager, crewId);
     });
   }
 
@@ -254,6 +273,7 @@ export class CrewsService {
       if (!contact) throw new NotFoundException('Contact not found.');
       Object.assign(contact, input);
       await manager.save(ExternalParticipant, contact);
+      markCrew(manager, crewId);
     });
   }
 }

@@ -5,6 +5,11 @@ import { useState, type FormEvent } from 'react';
 import { apiRequest, describeError } from '../lib/api-client';
 import { isCrewResponse } from '../lib/contracts-guards';
 import { Feedback } from './form-parts';
+import { DraftChangeNotice } from './draft-change-notice';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Plus, Save } from 'lucide-react';
+import './team-availability.css';
 
 export function ContactForm({
   crewId,
@@ -52,15 +57,23 @@ export function ContactForm({
   }
 
   return (
-    <form className="form-grid" onSubmit={(event) => void submit(event)}>
-      <fieldset disabled={pending}>
-        <label>
+    <form
+      className="team-contact-form"
+      aria-label={contact ? `Edit contact ${contact.name}` : 'Add external contact'}
+      onSubmit={(event) => void submit(event)}
+    >
+      <DraftChangeNotice paths={[`/crews/${crewId}`]} />
+      <fieldset
+        disabled={pending}
+        className="tw:m-0 tw:grid tw:min-w-0 tw:grid-cols-2 tw:gap-4 tw:border-0 tw:p-0 tw:max-[600px]:grid-cols-1"
+      >
+        <label className="team-availability-field">
           Name
-          <input name="name" required maxLength={120} defaultValue={contact?.name} />
+          <Input name="name" required maxLength={120} defaultValue={contact?.name} />
         </label>
-        <label>
+        <label className="team-availability-field">
           Specialty
-          <input
+          <Input
             name="specialty"
             required
             maxLength={120}
@@ -68,23 +81,24 @@ export function ContactForm({
             placeholder="Electrician, supplier…"
           />
         </label>
-        <label>
+        <label className="team-availability-field">
           Phone
-          <input name="phone" type="tel" maxLength={50} defaultValue={contact?.phone ?? ''} />
+          <Input name="phone" type="tel" maxLength={50} defaultValue={contact?.phone ?? ''} />
         </label>
-        <label>
+        <label className="team-availability-field">
           Email
-          <input name="email" type="email" maxLength={254} defaultValue={contact?.email ?? ''} />
+          <Input name="email" type="email" maxLength={254} defaultValue={contact?.email ?? ''} />
         </label>
-        <label className="checkbox-field">
+        <label className="checkbox-field tw:col-span-full">
           <input name="active" type="checkbox" defaultChecked={contact?.active ?? true} />
           Contact enabled
         </label>
       </fieldset>
       <Feedback error={error} success={success} />
-      <button className="secondary-button" disabled={pending}>
+      <Button type="submit" variant="outline" className="tw:w-fit" disabled={pending}>
+        {contact ? <Save aria-hidden="true" /> : <Plus aria-hidden="true" />}
         {pending ? 'Saving…' : contact ? 'Save contact' : 'Add contact'}
-      </button>
+      </Button>
     </form>
   );
 }

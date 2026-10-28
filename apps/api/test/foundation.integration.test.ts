@@ -76,7 +76,18 @@ describe('M1 foundation on a dedicated PostgreSQL test database', () => {
 
   it('migrates once, seeds ten crews repeatedly and preserves user changes', async () => {
     if (!dataSource) throw new Error('Test PostgreSQL is not initialized.');
-    expect(await dataSource.runMigrations()).toHaveLength(2);
+    expect((await dataSource.runMigrations()).map(({ name }) => name)).toEqual([
+      'CreateCrew1792886400000',
+      'CreateIdentity1792886401000',
+      'CreateOrders1792886402000',
+      'CreatePlanning1792886403000',
+      'CreateExecution1792886404000',
+      'CreateEvidence1792886404100',
+      'CreateEstimates1792886405000',
+      'CreateReturnVisits1792886405100',
+      'CreateAcceptance1792886406000',
+      'CreateCompletion1792886406100',
+    ]);
     expect(await dataSource.runMigrations()).toHaveLength(0);
     await seedCrews(dataSource, 'test');
     const repository = dataSource.getRepository(Crew);

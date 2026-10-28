@@ -1,0 +1,228 @@
+/* Only the existing follow-up plan form; no changes to SlotFinder in other workflows. */
+.return-plan-workspace {
+  gap: 1.25rem;
+  color: #18372e;
+}
+.return-plan-workspace .return-plan-intro {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+.return-plan-workspace .return-plan-symbol {
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dce7d3;
+  border-radius: 0.85rem;
+  background: #edf4e6;
+  color: #507344;
+}
+.return-plan-workspace .return-plan-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7a896e;
+}
+.return-plan-workspace h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.return-plan-workspace .return-plan-copy,
+.return-plan-workspace fieldset > p {
+  margin: 0;
+  color: #697963;
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+.return-plan-workspace .return-plan-revision {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background: #f2f5ed;
+  color: #66775a;
+  font-size: 0.7rem;
+  line-height: 1.8;
+}
+.return-plan-workspace .return-plan-revision svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.return-plan-workspace fieldset {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 1.15rem;
+  border: 1px solid #dfe7d8;
+  border-radius: 1rem;
+  background: white;
+}
+.return-plan-workspace legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-inline: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #355339;
+}
+.return-plan-workspace legend svg {
+  flex-shrink: 0;
+  color: #80966e;
+}
+.return-plan-workspace label {
+  display: grid;
+  min-width: 0;
+  gap: 0.55rem;
+  color: #4e6445;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.return-plan-workspace .checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.return-plan-workspace input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 1rem;
+  min-height: 1rem;
+  height: 1rem;
+  margin: 0.2rem 0 0;
+  accent-color: #416b43;
+}
+.return-plan-workspace .return-plan-teams {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 0.65rem;
+}
+.return-plan-workspace .return-plan-teams label {
+  min-height: 2.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e0e6da;
+  border-radius: 0.7rem;
+  background: #fafbf7;
+}
+.return-plan-workspace .return-plan-teams label:has(input:checked) {
+  border-color: #91ae7c;
+  background: #eef5e5;
+  color: #3e613d;
+}
+.return-plan-workspace .return-scope-row {
+  gap: 0.8rem;
+  padding: 1rem;
+  border: 1px solid #e1e7da;
+  border-radius: 0.8rem;
+  background: #fafbf7;
+}
+.return-plan-workspace .return-scope-row > p {
+  margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.8;
+  color: #7a866e;
+  overflow-wrap: anywhere;
+}
+.return-plan-workspace .return-plan-empty {
+  padding: 0.85rem 1rem;
+  border: 1px dashed #d8e1ce;
+  border-radius: 0.65rem;
+  background: #fafbf7;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: #7a866e;
+}
+.return-plan-workspace .return-preview {
+  padding: 1.15rem;
+  border: 1px solid #cbdcbd;
+  border-radius: 0.85rem;
+  background: #f1f7e9;
+  color: #355537;
+}
+.return-plan-workspace .return-preview h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.return-plan-workspace .return-preview p {
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+.return-plan-workspace .conflict-notice,
+.return-plan-workspace .form-error {
+  padding: 1rem;
+  border: 1px solid #eadac5;
+  border-radius: 0.8rem;
+  background: #fcf5e9;
+  color: #8e6b36;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.return-plan-workspace .slot-finder {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
+}
+.return-plan-workspace .slot-finder input:not([type='checkbox']),
+.return-plan-workspace .slot-finder select {
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 1px solid #d5dfd0;
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  background: white;
+  color: #294b39;
+  font-size: 0.75rem;
+}
+.return-plan-workspace .slot-finder button {
+  min-height: 2.75rem;
+  border: 1px solid #d5dfd0;
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  background: white;
+  color: #294b39;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.return-plan-workspace .slot-finder button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.return-plan-workspace .slot-finder :is(input, select, button):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 2px;
+}
+.return-plan-workspace .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+@media (max-width: 600px) {
+  .return-plan-workspace fieldset,
+  .return-plan-workspace .return-preview,
+  .return-plan-workspace .return-scope-row {
+    padding: 0.85rem;
+  }
+  .return-plan-workspace .return-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .return-plan-workspace > button[type='submit'] {
+    width: 100%;
+  }
+}

@@ -1,0 +1,17 @@
+.session-scope {
+  display: contents;
+}
+.live-status {
+  padding: 0.45rem 1rem;
+  font-size: 0.82rem;
+  color: #29483d;
+  background: #edf4f0;
+  border-bottom: 1px solid #d5e2da;
+  overflow-wrap: anywhere;
+}
+.live-status > span {
+  font-weight: 700;
+}
+.live-status small {
+  font-size: inherit;
+}

@@ -1,0 +1,80 @@
+.bo-execution-panel {
+  min-width: 0;
+}
+.bo-execution-panel h3 {
+  margin: 1.5rem 0 0.75rem;
+}
+.bo-execution-panel h4,
+.bo-execution-panel h5 {
+  margin: 0.5rem 0;
+}
+.bo-execution-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.bo-execution-badges .service-badge {
+  white-space: normal;
+}
+.bo-execution-items {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.bo-execution-items li,
+.bo-execution-assignment {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+  min-width: 0;
+}
+.bo-execution-visit {
+  border-top: 1px solid var(--line);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+}
+.bo-execution-assignment {
+  margin: 0.75rem 0;
+}
+.bo-execution-report {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  margin: 0.75rem 0;
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.bo-execution-report summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.bo-execution-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.bo-execution-readout {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.issue-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+.issue-row > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.issue-row h2 {
+  font-size: 1.05rem;
+}
+@media (max-width: 600px) {
+  .issue-row {
+    grid-template-columns: 1fr;
+  }
+  .bo-execution-panel .card-line {
+    align-items: stretch;
+  }
+}

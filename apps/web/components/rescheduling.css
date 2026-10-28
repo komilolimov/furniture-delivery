@@ -1,0 +1,90 @@
+.slot-finder,
+.reschedule-preview,
+.estimate-editor {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 18px 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.slot-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 16px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.slot-controls legend {
+  margin-bottom: 12px;
+}
+.slot-controls label,
+.estimate-editor label,
+.reschedule-preview label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.slot-controls .button-row,
+.slot-controls .checkbox-field {
+  grid-column: 1 / -1;
+}
+.slot-controls input,
+.reschedule-preview input,
+.reschedule-preview textarea,
+.estimate-editor input,
+.estimate-editor textarea {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.slot-controls .checkbox-field,
+.reschedule-preview .checkbox-field {
+  display: flex;
+  align-items: flex-start;
+}
+.slot-controls input[type='checkbox'],
+.reschedule-preview input[type='checkbox'],
+.estimate-editor input[type='checkbox'] {
+  width: auto;
+}
+.slot-results {
+  display: grid;
+  gap: 16px;
+  padding-left: 24px;
+}
+.slot-results li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.risk-panel {
+  margin: 22px 0;
+}
+.risk-panel ul {
+  padding-left: 20px;
+}
+.risk-panel li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.estimate-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+.reschedule-preview {
+  display: grid;
+  gap: 16px;
+}
+@media (max-width: 540px) {
+  .slot-finder,
+  .reschedule-preview,
+  .estimate-editor {
+    padding: 14px;
+  }
+}

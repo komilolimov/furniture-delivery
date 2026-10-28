@@ -1,3 +1,4 @@
+import { markRealtime } from '../realtime/post-commit';
 import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import type { AuthUser, CreateUserRequest, UpdateUserRequest } from '@furniture-delivery/contracts';
 import { IsNull } from 'typeorm';
@@ -38,6 +39,10 @@ export class UsersService {
           active: input.active ?? true,
         });
         await manager.getRepository(User).save(user);
+        markRealtime(manager, {
+          backoffice:
+            user.role === 'CREW_MEMBER' && user.active ? ['accounts', 'crews'] : ['accounts'],
+        });
         return userResponse(manager, user);
       });
     } catch (error) {
@@ -59,9 +64,16 @@ export class UsersService {
         lock: { mode: 'pessimistic_write' },
       });
       if (!user) throw new NotFoundException('User not found.');
+      const memberships = await manager.getRepository(CrewMember).findBy({ userId: id });
+      const crewIds = [...new Set(memberships.map(({ crewId }) => crewId))].sort();
+      const hadActiveMembership = memberships.some(({ active }) => active);
+      const wasCandidate = user.active && user.role === 'CREW_MEMBER' && !hadActiveMembership;
       const permissionsChanged =
         (input.role !== undefined && input.role !== user.role) ||
         (input.active !== undefined && input.active !== user.active);
+      const publicIdentityChanged =
+        permissionsChanged ||
+        (input.displayName !== undefined && input.displayName !== user.displayName);
       if (input.displayName !== undefined) user.displayName = input.displayName;
       if (input.active !== undefined) user.active = input.active;
       if (input.role !== undefined) user.role = input.role;
@@ -77,6 +89,15 @@ export class UsersService {
           .getRepository(AuthSession)
           .update({ userId: id, revokedAt: IsNull() }, { revokedAt: new Date() });
       }
+      const isCandidate = user.active && user.role === 'CREW_MEMBER' && !hadActiveMembership;
+      // Crew DTOs retain former roster members with their current public identity.
+      const rosterChanged = publicIdentityChanged && crewIds.length > 0;
+      const candidatesChanged = publicIdentityChanged && (wasCandidate || isCandidate);
+      markRealtime(manager, {
+        backoffice: rosterChanged || candidatesChanged ? ['accounts', 'crews'] : ['accounts'],
+        userId: id,
+        ...(rosterChanged ? { crewIds, crew: ['crew-team'] as const } : {}),
+      });
       return userResponse(manager, user);
     });
   }

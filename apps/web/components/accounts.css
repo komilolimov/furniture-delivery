@@ -1,0 +1,81 @@
+/* Only the account directory and its controlled drawers use this scope. */
+.accounts-theme {
+  min-width: 0;
+  color: #18372e;
+}
+.accounts-theme fieldset {
+  min-width: 0;
+}
+.accounts-theme .form-error,
+.accounts-theme .conflict-notice {
+  border: 1px solid #ead5ca;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fcf2e9;
+  color: #8d513f;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.accounts-theme .form-success {
+  border: 1px solid #d3e3ca;
+  border-radius: 10px;
+  padding: 14px;
+  background: #eff6e9;
+  color: #3b6240;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.accounts-theme .resource-notice {
+  margin: 0;
+  color: #65716a;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.accounts-theme .resource-notice > .secondary-button {
+  min-height: 44px;
+  border: 1px solid #d5dfd0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: white;
+  color: #294b39;
+  font-size: 12px;
+  font-weight: 600;
+}
+.accounts-theme :is(a, button):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+@media (max-width: 900px) {
+  .accounts-directory-table,
+  .accounts-directory-table tbody {
+    display: block;
+  }
+  .accounts-directory-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+  .accounts-directory-table tbody {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+  }
+  .accounts-directory-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .accounts-directory-table tbody td:nth-child(1),
+  .accounts-directory-table tbody td:nth-child(4),
+  .accounts-directory-table tbody td:nth-child(5) {
+    grid-column: 1/-1;
+  }
+}

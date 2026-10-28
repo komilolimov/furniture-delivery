@@ -1,0 +1,150 @@
+/* Only the full return-request workspace and its existing command forms. */
+.return-workspace,
+.return-detail {
+  min-width: 0;
+}
+.return-detail > section {
+  scroll-margin-top: 24px;
+}
+.return-detail :is(a, button, summary):focus-visible,
+.return-workspace > nav a:focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+.return-detail .return-review-form {
+  margin-block: 1.25rem 0;
+  border-top: 1px solid #e2e8db;
+  padding-top: 1.25rem;
+}
+.return-detail .return-review-form h3 {
+  margin: 0;
+  color: #294b39;
+  font-size: 15px;
+  font-weight: 600;
+}
+.return-detail .return-review-form p,
+.return-detail .return-review-form label,
+.return-detail .return-review-form legend {
+  font-size: 12px;
+  line-height: 1.75;
+}
+.return-detail .return-review-form p {
+  margin: 0;
+  color: #65716a;
+}
+.return-detail .return-review-form fieldset {
+  border: 1px solid #dfe6d7;
+  border-radius: 12px;
+  background: #f7f9f3;
+}
+.return-detail .return-review-form legend {
+  color: #496642;
+  font-weight: 600;
+}
+.return-detail .return-review-form :is(input, select, textarea) {
+  min-width: 0;
+  border: 1px solid #d6dfd0;
+  border-radius: 8px;
+  background: white;
+  color: #18372e;
+  font-size: 12px;
+}
+.return-detail .return-review-form :is(input, select, textarea):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 2px;
+}
+.return-detail .return-review-form input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: #52764c;
+}
+.return-detail .return-review-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.return-detail .return-review-form button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #193e30;
+  border-radius: 8px;
+  background: #193e30;
+  padding: 10px 14px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+.return-detail .return-review-form button.secondary-button {
+  border-color: #d5dfd0;
+  background: white;
+  color: #294b39;
+}
+.return-detail .return-review-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.return-detail .return-review-form .conflict-notice,
+.return-workspace .form-error {
+  border: 1px solid #ead7cc;
+  border-radius: 10px;
+  background: #fcf3ec;
+  padding: 14px;
+  color: #92583f;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.return-detail .return-review-form .conflict-notice p {
+  color: inherit;
+}
+.return-detail .return-review-form .conflict-notice button {
+  margin-top: 10px;
+  margin-right: 8px;
+}
+.return-workspace .resource-notice {
+  margin: 0;
+  color: #65716a;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.return-workspace .resource-notice > .secondary-button {
+  min-height: 44px;
+  border: 1px solid #d5dfd0;
+  border-radius: 8px;
+  background: white;
+  color: #294b39;
+  font-size: 12px;
+}
+@media (max-width: 650px) {
+  .return-quantities-table,
+  .return-quantities-table tbody {
+    display: block;
+  }
+  .return-quantities-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .return-quantities-table tbody {
+    display: grid;
+    gap: 12px;
+  }
+  .return-quantities-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    border-radius: 10px;
+    background: #f5f8ef;
+    padding: 14px;
+  }
+  .return-quantities-table tbody td:first-child {
+    grid-column: 1 / -1;
+  }
+}

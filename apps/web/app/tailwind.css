@@ -1,0 +1,7 @@
+/* Keep legacy pages intact: no Preflight reset, prefixed utilities only. */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme) prefix(tw);
+@import 'tailwindcss/utilities.css' layer(utilities) prefix(tw) important source(none);
+
+@source './**/*.{ts,tsx}';
+@source '../components/**/*.{ts,tsx}';

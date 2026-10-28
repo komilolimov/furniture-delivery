@@ -8,6 +8,9 @@ vi.mock('../lib/api-client', async (importOriginal) => ({
   ...(await importOriginal<typeof import('../lib/api-client')>()),
   apiRequest: vi.fn(),
 }));
+vi.mock('./session-provider', () => ({
+  useCurrentUser: () => ({ id: 'user-1', role: 'CREW_MEMBER' }),
+}));
 const apiMock = vi.mocked(apiRequest);
 const crew: CrewDetail = {
   id: 'crew-1',

@@ -1,0 +1,101 @@
+# Финальная пользовательская приёмка M5–M8
+
+Это очередь проверки, а не акт приёмки. Первый проход 2026-10-27 остановлен с **BROWSER ACCESS: BLOCKED**, бизнес-шаги **NOT RUN**; остальная матрица остаётся **PENDING / DEFERRED BY USER**. Реальные телефон, камера и canvas — **NOT VERIFIED**. M5, M6, M7 и M8 не становятся ACCEPTED от наличия кода или этой таблицы.
+
+Основание: [M5](../prompts/05-crew-execution.md), [M6](../prompts/06-rescheduling-return-visits.md), [M7](../prompts/07-signatures-order-completion.md), [M8](../prompts/08-realtime-demo-readiness.md) и очередь в [PROGRESS](PROGRESS.md). Исторический PASS сценария M5 A относится к прежним исходникам; это не PASS интерфейса M8. Актуальные программные команды, run IDs, exit codes и ограничения записываются отдельно в PROGRESS. HTTP/workflow tests, mock EventSource, jsdom, canvas mocks и production build не подтверждают работу двух настоящих браузеров или физического устройства.
+
+## Первый проход 2026-10-27 — доступ BLOCKED
+
+- Проверяющий: Codex; дата набора **2026-10-27 Europe/Rome**.
+- Run ID приёмки: **`accept1-20261027t075310`**; code-check run: **`20261026T192023Z`**.
+- HEAD `3dd16a1`, staging сохранён. Все **392** code/config inputs совпали с проверенным
+  M8; canonical SHA-256 `45194704889d24ef98fbf18787e2e2c4dc5dfef22575076ada774a0a6c499a49`. Новый полный test/build gate не запускался.
+- Окружение: собственная test schema **`fd_demo_accept1_20261027t075310_7651fe56`** в postgres-test **5433**,
+  private storage **`.demo-runs/accept1-20261027t075310/storage`**; development не использован.
+- Demo prepare: **PASS, exit 0**, 40 вымышленных заказов / 10 команд / 40 сотрудников + 2 BO.
+  Demo start: **RUNNING**, CLI readiness и PID/cwd проверены. Его exit code **не получен**,
+  поскольку процесс по указанию пользователя оставлен работать. Это подготовка, не UI PASS.
+- Браузер/версии/два независимых ролевых контекста: **NOT ESTABLISHED**.
+  Открытие штатным инструментом: **BLOCKED**. Viewport **390/1280: NOT RUN**.
+  Реальная камера/touch/canvas: **NOT VERIFIED**.
+
+Точный отказ инструмента:
+
+> Browser Use rejected this action due to browser security policy. Reason: A saved user permission setting blocks this action.
+> The origin approval gate did not grant access for http://127.0.0.1:3000. A saved permission or managed policy denies access.
+
+Полный исходный отказ и единственная попытка открытия сохранены в
+`.tmp/final-acceptance/accept1-20261027t075310/browser-access.json`. Предшествующий поиск прежней вкладки вернул
+`Tab not found in browser 2`; страницы/разрешения он не получил. После отказа не было
+других browser surfaces/origins/ports, HTTP/CLI бизнес-действий или обхода ограничения.
+Скриншоты **отсутствуют**: доступ к странице не получен.
+
+| Шаг первого прохода | Ожидаемая проверка | Фактический результат | Доказательство |
+| --- | --- | --- | --- |
+| A | Новый DELIVERY_AND_ASSEMBLY order, товар qty=2, €1000/платёж €300, две свободные команды на Rome Today, client confirmed | **NOT RUN** | Browser access denied до UI |
+| B | A: Depart → Arrive → Start, свой checklist, общие totals 1/1, маленькое фото, собственный finish; B не завершается | **NOT RUN** | Browser access denied до UI |
+| C | B: актуальные totals, собственные задачи/остаток; после finish/reload totals 2/2, FinishReport A неизменён | **NOT RUN** | Browser access denied до UI |
+| D | После terminal обеих команд общий документ и три настоящих UI-canvas подтверждения: customer, свой staff A и свой staff B | **NOT RUN** | Browser access denied до UI |
+| E | Reload подтверждений, readiness, явный Complete; COMPLETED и независимый долг €700; crew без финансов | **NOT RUN** | Browser access denied до UI |
+| F | Два независимых сеанса; карточка диспетчера обновляется без reload во время действий crew; наблюдаемый Live/fallback | **NOT RUN** | Ролевые browser contexts не установлены; режим не наблюдался |
+| Viewport | Соответствующие экраны 390 и 1280 px | **NOT RUN** | Browser access denied до UI |
+
+Новые Order/Appointment/Payment/Signature IDs **не создавались через UI**.
+Готовые заказы/синтетические подтверждения из demo prepare не использованы как
+доказательство сценария. Полные строки M7-1/M8-1/UI-1 и остальная матрица ниже
+**не получили PASS**. Issues/returns/reopen, failures/privacy/reconnect, телефон и
+backup/restore остаются открытыми. **USER ACCEPTANCE: PENDING**.
+
+Демо оставлено на **http://127.0.0.1:3000/login** для ручного просмотра. Использовать
+только private-файл **`.demo-runs/accept1-20261027t075310/credentials.local.json`** (0600); пароли/cookie/tokens/PNG в отчёт не включены.
+Доказательства вне cleanup: `.tmp/final-acceptance/accept1-20261027t075310/results.json`, `preflight.json`,
+`isolation-and-startup.json`; command logs: `.tmp/m8/accept1-20261027t075310/01-demo-prepare.*` и
+`02-demo-start.*`. Бизнес-данные development и чужие run не изменялись.
+Cleanup этого run **не выполнялся**. Для остановки и возврата обычного dev:
+
+```bash
+pnpm demo:stop --run accept1-20261027t075310
+pnpm dev
+```
+
+Использовать вымышленные данные и отдельное разрешённое demo/test-окружение по [DEMO_RUNBOOK](DEMO_RUNBOOK.md). Не менять development-аккаунты, пароли и данные ради сценария. Пароли, cookies, tokens, raw PNG и приватные клиентские сведения в отчёт не копировать. Для доказательств указывать безопасные пути/ссылки на скриншоты и журналы; каждую найденную ошибку связывать с ID строки и версией исходников. Недоступный file chooser или инструмент фиксировать как BLOCKED с причиной, без обхода ограничений.
+
+В основной матрице пока нет фактических результатов бизнес-шагов; отказ первого прохода зафиксирован отдельно выше. После реального запуска заполнить PASS / FAIL / BLOCKED, run ID, доказательство и ID ошибки для каждой выполненной строки; остальные оставить PENDING. Старая успешная версия не заменяет повтор после изменения проверяемого кода.
+
+## Матрица сценариев
+
+| ID | Путь и ожидаемый результат | Фактический результат | Доказательства / ошибки |
+| --- | --- | --- | --- |
+| M5-B1 | Заказано **2**, доставлено **1**, собрано **0**. Сотрудник добавляет фото товара и связанный issue, завершает свою команду как PARTIALLY_COMPLETED с reason/remainingWork и открытой потребностью повторного приезда. Reload сохраняет всё. Resolve issue диспетчером не меняет количества, исходный отчёт и return need. | DEFERRED BY USER / PENDING | — |
+| M5-B2 | После выезда/начала обычный перенос или отмена не разрешены. Начатая работа и фактическое опоздание сохраняются; прежний план не переписывается задним числом. | DEFERRED BY USER / PENDING | — |
+| M5-C1 | Через штатный file chooser загрузить небольшой допустимый материал, затем отдельно **PDF 20 MiB**. Повторно открыть сохранённые материалы. BACKOFFICE_ONLY не доступен crew; CREW_VISIBLE доступен только разрешённому участнику. Доступ проверяется и при каждом чтении старого URL. HTTP upload не выдавать за UI upload. | DEFERRED BY USER / PENDING | — |
+| M5-C2 | Неверный формат/MIME, повреждённое изображение и oversized-файл отклоняются с понятной ошибкой; корректный ввод/Retry остаётся доступен. Loading/empty/error и ограничения PDF/изображений соответствуют текущим documented limits. | DEFERRED BY USER / PENDING | — |
+| M5-C3 | Lost response и явный Retry не удваивают файл, issue, checklist или количества. Две вкладки дают 409 устаревшему действию без потери draft. При остановке только fixture API и последующем восстановлении UI показывает честную ошибку и восстанавливается. Не останавливать development для этой проверки. | DEFERRED BY USER / PENDING | — |
+| M5-C4 | После logout, отключения пользователя или смены членства новые обращения к прежним file URLs запрещены. Чужие назначения/заказы, финансы и внутренние материалы не появляются в crew responses. Уже полученные человеком bytes не считаются технически отозванными. | DEFERRED BY USER / PENDING | — |
+| M6-1 | Сотрудник меняет estimate только своего назначения. План, estimate и actual показаны отдельно. Просроченная/неизвестная оценка и риск следующего визита отображаются честно, с источником и buffer; часы сами не завершают работу и не переносят визит. | DEFERRED BY USER / PENDING | — |
+| M6-2 | Search → preview → явный apply с причиной. Поиск не резервирует слот. Если окно занято после поиска, 409 сохраняет ввод, старую версию и исходную бронь. Успешный перенос сохраняет Appointment ID/задачи/историю; изменение времени требует нового подтверждения клиента. Проверить совместные команды, рабочие окна и недоступность. | DEFERRED BY USER / PENDING | — |
+| M6-3 | Partial/blocked → request → новый follow-up того же Order с явным остатком. DONE не возвращаются в checklist, required scope не теряется, одна carried task не копируется каждой команде; общие количества не удваиваются. Cancel неначатого/неудачная попытка возвращают OPEN с историей. Retry не создаёт второй текущий визит. Успешная работа требует отдельного resolve; resolve issue/request независимы. | DEFERRED BY USER / PENDING | — |
+| M7-1 | Обычный и многокомандный визит: общая редакция недоступна, пока другая команда не закончила. После finish подготовить документ, прочитать реальные снимки quantities каждой команды без сложения, нарисовать настоящие штрихи, сохранить customer и собственные staff slots, выполнить reload. Одна команда не подписывает другую и не закрывает весь Order. | DEFERRED BY USER / PENDING | — |
+| M7-2 | Partial/issue → честное подтверждение частичного результата без final close → follow-up с остатком → finish/resolve → отдельный документ и подписи follow-up → Complete только при всех условиях. Исходные отчёты/подписи неизменны; долг остаётся отдельным признаком. | DEFERRED BY USER / PENDING | — |
+| M7-3 | Refused/Absent/Unable to sign с причиной остаётся отсутствием подписи. Pending/rejected exception блокирует closure. Dispatcher approve относится к одному slot и не обходит остальные подписи, issue, количества или return need. Из имени не генерируется изображение подписи. | DEFERRED BY USER / PENDING | — |
+| M7-4 | Явный Complete → новый/reopened issue с подтверждением последствия → atomic Reopen с прежними PNG/history. Resolve issue не делает auto-close. Проверить manual reopen/reclose и старый Complete Retry: он не закрывает заказ повторно; новое закрытие создаёт новую историческую запись. | DEFERRED BY USER / PENDING | — |
+| M7-5 | Invalidate с причиной сохраняет документ/старые bytes и переоткрывает закрытый заказ. Новая редакция требует новых подтверждений; старый Retry и прежний Blob не оживляют/не заменяют документ. Protected image доступен crew только для customer/своего назначения того же визита; другой follow-up не даёт доступ к чужому staff-росчерку. После logout/смены членства повторно открыть старый protected PNG-signature URL: доступ запрещён; прежние bytes не считаются технически отозванными. Customer modal скрывает рабочую навигацию, включая keyboard focus. | DEFERRED BY USER / PENDING | — |
+| M8-1 | Два независимых браузерных сеанса/устройства: mutation первого после commit приводит к canonical GET и обновлению второго без reload страницы. Один stream на authenticated layout/tab. Crew не получает отдельные hints о платежах, private материалах или чужих записях; в SSE нет рабочих payloads/секретов. | DEFERRED BY USER / PENDING | — |
+| M8-2 | Live → disconnect/API unavailable → reconnect/Periodic refresh. Проверить через настоящий Next proxy, что events приходят до закрытия stream. Ready/heartbeat не меняют время успешного data read. Reconnect/focus/online сначала проверяют session, затем данные. Один read в полёте на key, не больше одного pending repeat; storm не запускает dashboard на каждую строку. Ориентиры: coalesce 250 ms, auto interval 2 s, dashboard 5 s, control sync 60 s; сверить с фактическими defaults в DECISIONS. | DEFERRED BY USER / PENDING | — |
+| M8-3 | Во время remote updates оставить dirty order/payment/planning/finish/return forms и unknown mutation. Поля, baseline versions, operation keys и frozen payloads сохраняются; внутри формы показано изменение данных. Hint не отправляет mutation. Retry явный и исходный. Обычный refetch сохраняет canvas/PNG; новая редакция блокирует старый submit и требует нового просмотра/рисунка. | DEFERRED BY USER / PENDING | — |
+| M8-4 | На открытом и простаивающем stream проверить expiry/logout/disabled user, смену роли/членства и снятие назначения. Текущий heartbeat reauthorization default — **15 s**, без обещания мгновенного отзыва всех устройств. Access-reset или 404 ранее доступного документа очищает приватные drafts/canvas/Object URLs до navigation; старый HTTP response их не возвращает. Невалидный первый URL не создаёт бесконечный reset-loop. | DEFERRED BY USER / PENDING | — |
+| M8-5 | Скрыть вкладку и вернуть после sleep/offline. Нет тяжёлого фонового polling; при возврате session/scope и активные данные перечитаны. Проверить control sync даже при здоровом stream: пропущенный hint, истечение estimate и смена Today восстанавливаются без mutation. | DEFERRED BY USER / PENDING | — |
+| UI-1 | **390/1280 px**: keyboard/labels/focus, длинные контакты/заметки, loading/empty/error/409/unknown/Retry и отсутствие горизонтального overflow. Dialog, canvas и кнопки Retry не отправляют внешний form случайно. | DEFERRED BY USER / PENDING | — |
+| UI-2 | Timezone устройства **Asia/Tokyo** против бизнес-зоны **Europe/Rome**: Today/Upcoming, полночь и DST не используют фиксированный offset. Следующий Today обновляется при control/focus sync; явно выбранная дата/фильтры/диапазон поиска не меняются самопроизвольно. | DEFERRED BY USER / PENDING | — |
+| DEVICE | Настоящий телефон: камера → фото товара → upload/reopen; touch/stylus/canvas, pointercancel, Clear/Preview/Save, rotation/DPR/resize без потери штрихов и нормальный scroll вне canvas. Эмуляция 390 px и mocks не подтверждают физическую камеру или ввод. | NOT VERIFIED | — |
+| DEMO | Чистая установка текущих исходников и отдельный synthetic demo run по runbook. Воспроизвести три истории: две команды → подписи → Complete; задержка/перенос/partial → follow-up → Complete; issue после close → Reopen/старый Retry. Использовать manifest/baseDate и частный credentials-файл, не прошлый development seed. | DEFERRED BY USER / PENDING | — |
+| BACKUP | Отдельно выполнить/зафиксировать совместное сохранение и восстановление PostgreSQL **и** private file storage: PNG M7 в БД, фото/документы M5 отдельно. Наличие инструкции не является проверенным restore. | NOT VERIFIED | — |
+
+## Решение пользователя
+
+- Программные результаты агента: см. [PROGRESS](PROGRESS.md); не заменяют строки этой матрицы.
+- Фактическое ограничение первого прохода: **BLOCKED saved browser origin permission**; бизнес A–F **NOT RUN**, см. run выше. Ошибки приложения через UI не оценены.
+- Решение пользователя по M5 / M6 / M7 / M8: **PENDING / PENDING / PENDING / PENDING**.
+- Проверяющий, дата, версия и доказательства окончательного решения: **не заполнено**.
+
+Этот MVP не объявляется production-ready: один API-процесс и best-effort SSE не дают durable replay/exactly-once или межпроцессную доставку; polling ограничен, offline нет. Юридическая оценка подписей, реальные устройства и эксплуатационное восстановление требуют отдельного подтверждения. Браузер запускается только с действующим разрешением инструмента. После M8 — приёмка и её исправления; новые этапы, commit/push/deploy автоматически не выполняются.

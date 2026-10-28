@@ -1,0 +1,375 @@
+/* This scope reskins existing workflow modules without changing their state or operations. */
+.orders-detail-theme {
+  --order-border: #dfe6d8;
+  --order-surface: #fffefa;
+  --order-ink: #18372e;
+  --order-muted: #65716a;
+  min-width: 0;
+}
+
+.orders-detail-theme [hidden] {
+  display: none !important;
+}
+
+.orders-detail-theme .content-card {
+  min-width: 0;
+  margin: 0 0 20px;
+  border: 1px solid var(--order-border);
+  border-radius: 16px;
+  padding: 24px;
+  background: var(--order-surface);
+  box-shadow: 0 3px 14px #18372e03;
+}
+
+.orders-detail-theme .content-card:last-child {
+  margin-bottom: 0;
+}
+
+.orders-detail-theme h2 {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  line-height: 1.4;
+}
+
+.orders-detail-theme h3 {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.orders-detail-theme .section-copy,
+.orders-detail-theme .empty-copy,
+.orders-detail-theme .return-text {
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--order-muted);
+  overflow-wrap: anywhere;
+}
+
+.orders-detail-theme .card-line {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.orders-detail-theme .card-line h2,
+.orders-detail-theme .card-line h3 {
+  margin-top: 0;
+}
+
+.orders-detail-theme .button-row {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.orders-detail-theme :is(.primary-button, .secondary-button) {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d5dfd0;
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.orders-detail-theme .primary-button {
+  border-color: #183d30;
+  background: #183d30;
+  color: #fff;
+}
+
+.orders-detail-theme .primary-button:hover:enabled {
+  background: #28523d;
+}
+
+.orders-detail-theme .secondary-button {
+  background: #fff;
+  color: #294b39;
+}
+
+.orders-detail-theme .secondary-button:hover:enabled {
+  border-color: #a8bda0;
+  background: #f0f5ec;
+}
+
+.orders-detail-theme :is(button, a, summary):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 3px;
+}
+
+.orders-detail-theme fieldset {
+  min-width: 0;
+}
+
+.orders-detail-theme label {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #52654f;
+}
+
+.orders-detail-theme
+  input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='file']),
+.orders-detail-theme select:not([aria-hidden='true']),
+.orders-detail-theme textarea {
+  min-height: 44px;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid #d5dfd0;
+  border-radius: 9px;
+  padding: 11px 12px;
+  background-color: white;
+  color: var(--order-ink);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.orders-detail-theme select:not([aria-hidden='true']):not([multiple]) {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2365775e' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 16px 16px;
+  padding-right: 36px;
+}
+
+.orders-detail-theme :is(input, select, textarea):focus-visible {
+  outline: 3px solid #91b88e;
+  outline-offset: 2px;
+}
+
+.orders-detail-theme :is(input, select, textarea):disabled {
+  background-color: #f1f4ed;
+  color: #74806c;
+}
+
+.orders-detail-theme input[type='checkbox'],
+.orders-detail-theme input[type='radio'] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  margin: 3px 0 0;
+  accent-color: #28543b;
+  flex: 0 0 auto;
+}
+
+.orders-detail-theme .checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  padding-block: 7px;
+  font-weight: 400;
+}
+
+.orders-detail-theme input[type='file'] {
+  max-width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px dashed #c9d7c1;
+  border-radius: 9px;
+  padding: 5px;
+  background: #f8faf4;
+  font-size: 12px;
+  color: var(--order-muted);
+}
+
+.orders-detail-theme input[type='file']::file-selector-button {
+  min-height: 36px;
+  margin-right: 10px;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: #e6efdf;
+  color: #31533b;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.orders-detail-theme .form-error,
+.orders-detail-theme .conflict-notice {
+  border: 1px solid #ebd6cb;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fcf2e9;
+  color: #8d513f;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.orders-detail-theme .form-success {
+  border: 1px solid #d3e3ca;
+  border-radius: 10px;
+  padding: 14px;
+  background: #eff6e9;
+  color: #3b6240;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.orders-detail-theme .resource-notice {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--order-muted);
+}
+
+.orders-detail-theme .service-badge {
+  max-width: 100%;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.orders-detail-theme
+  :is(
+    .appointment-card,
+    .assignment-snapshot,
+    .bo-execution-assignment,
+    .acceptance-slot,
+    .closure-draft,
+    .item-editor,
+    .return-attempt
+  ) {
+  min-width: 0;
+  border-color: var(--order-border);
+  border-radius: 12px;
+  background: #fbfcf7;
+}
+
+.orders-detail-theme :is(.planning-editor, .return-plan, .void-form, .evidence-form) {
+  min-width: 0;
+  border-radius: 12px;
+  border-color: var(--order-border);
+  background: #f7f9f2;
+}
+
+.orders-detail-theme details > summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  list-style: none;
+  padding-right: 28px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.orders-detail-theme details > summary::marker {
+  content: '';
+}
+
+.orders-detail-theme details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.orders-detail-theme details > summary::after {
+  position: absolute;
+  right: 7px;
+  top: calc(50% - 5px);
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid #65775e;
+  border-bottom: 1.5px solid #65775e;
+  transform: rotate(45deg);
+  content: '';
+}
+
+.orders-detail-theme details[open] > summary::after {
+  top: calc(50% - 1px);
+  transform: rotate(225deg);
+}
+
+.orders-detail-theme :is(.record-id, .activity-changes, .evidence-entry, .return-text, pre) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.orders-detail-theme dialog {
+  max-width: calc(100% - 32px);
+  border-color: #d6dfce;
+  border-radius: 16px;
+  background: #fffefa;
+  color: var(--order-ink);
+  box-shadow: 0 20px 80px #18372e24;
+}
+
+/* Customer signing mode must keep the backoffice obscured, including financial details. */
+.orders-detail-theme dialog::backdrop {
+  background: #edf1e8;
+}
+
+.orders-detail-theme .signature-canvas,
+.orders-detail-theme .signature-preview {
+  max-width: 100%;
+  border-color: #b3c5a9;
+  border-radius: 10px;
+}
+
+.orders-detail-theme :is(.closure-readiness, .evidence-list, .assignment-snapshots) {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .orders-detail-theme .content-card {
+    padding: 18px;
+  }
+
+  .orders-detail-theme .form-grid,
+  .orders-detail-theme .access-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .orders-detail-theme .inline-form {
+    align-items: stretch;
+  }
+
+  .orders-detail-theme .inline-form label {
+    min-width: 0;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .orders-detail-theme .content-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .orders-detail-theme
+    :is(
+      .appointment-card,
+      .assignment-snapshot,
+      .bo-execution-assignment,
+      .closure-draft,
+      .item-editor
+    ) {
+    padding: 14px;
+  }
+
+  .orders-detail-theme .button-row > :is(button, a) {
+    flex: 1 1 auto;
+  }
+
+  .orders-detail-theme dialog {
+    max-width: calc(100% - 16px);
+    border-radius: 12px;
+  }
+}

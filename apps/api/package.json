@@ -10,7 +10,15 @@
     "test": "vitest run --config vitest.config.ts",
     "test:integration": "NODE_ENV=test vitest run --config vitest.integration.config.ts",
     "db:migrate": "tsx src/database/migrate.ts",
-    "db:seed": "tsx src/database/seed.ts"
+    "db:seed": "tsx src/database/seed.ts",
+    "storage:inspect": "tsx src/evidence/storage-inspect.ts",
+    "demo:prepare": "tsx src/demo/cli.ts prepare",
+    "demo:start": "tsx src/demo/cli.ts start",
+    "demo:stop": "tsx src/demo/cli.ts stop",
+    "demo:cleanup": "tsx src/demo/cli.ts cleanup",
+    "demo:verify": "tsx src/demo/demo-verify.ts",
+    "test:proxy": "NODE_ENV=test tsx test/run-proxy.ts",
+    "test:load": "NODE_ENV=test tsx test/realtime-load.ts"
   },
   "dependencies": {
     "@furniture-delivery/contracts": "workspace:*",
@@ -18,13 +26,16 @@
     "@nestjs/core": "11.2.8",
     "@nestjs/platform-express": "11.2.8",
     "dotenv": "18.0.9",
+    "luxon": "3.7.2",
     "pg": "8.16.3",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2",
-    "typeorm": "0.3.31"
+    "typeorm": "0.3.31",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
+    "@types/luxon": "3.7.6",
     "@types/node": "24.19.2",
     "tsx": "4.23.15",
     "typescript": "5.9.3",

@@ -1,4 +1,4 @@
-import { CrewList } from '../../components/crew-list';
+import { OrderDashboard } from '../../components/order-dashboard';
 export default function BackofficePage() {
-  return <CrewList />;
+  return <OrderDashboard />;
 }

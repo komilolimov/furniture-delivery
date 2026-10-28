@@ -64,4 +64,42 @@ describe('LoginForm', () => {
     expect(await screen.findByRole('alert')).toBeInTheDocument();
     expect(navigation.replace).not.toHaveBeenCalled();
   });
+  it('shows and hides the same password field without changing its value or submitting', () => {
+    render(<LoginForm />);
+    const password = screen.getByLabelText('Password');
+    fireEvent.change(password, { target: { value: ' synthetic test phrase ' } });
+    const show = screen.getByRole('button', { name: 'Show password' });
+    expect(show).toHaveAttribute('type', 'button');
+    expect(show).toHaveAttribute('aria-controls', password.id);
+    expect(show).toHaveAttribute('aria-pressed', 'false');
+    expect(password).toHaveAttribute('type', 'password');
+    fireEvent.click(show);
+    expect(screen.getByLabelText('Password')).toBe(password);
+    expect(password).toHaveAttribute('type', 'text');
+    expect(password).toHaveValue(' synthetic test phrase ');
+    expect(password).toHaveAttribute('autocomplete', 'current-password');
+    const hide = screen.getByRole('button', { name: 'Hide password' });
+    expect(hide).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.click(hide);
+    expect(password).toHaveAttribute('type', 'password');
+    expect(password).toHaveValue(' synthetic test phrase ');
+    expect(apiMock).not.toHaveBeenCalled();
+  });
+
+  it('masks a revealed password on submission and retains it after rejected sign-in', async () => {
+    apiMock.mockRejectedValue(new ApiError(401, 'Invalid sign-in details.'));
+    render(<LoginForm />);
+    fireEvent.click(screen.getByRole('button', { name: 'Show password' }));
+    submitLogin();
+    expect(screen.getByLabelText('Password')).toHaveAttribute('type', 'password');
+    expect(screen.getByRole('button', { name: 'Show password' })).toBeDisabled();
+    await screen.findByRole('alert');
+    expect(screen.getByLabelText('Password')).toHaveValue('test-only-password');
+    expect(screen.getByRole('button', { name: 'Show password' })).toBeEnabled();
+    expect(apiMock).toHaveBeenCalledTimes(1);
+    expect(apiMock).toHaveBeenCalledWith('/auth/login', {
+      method: 'POST',
+      body: { username: 'worker', password: 'test-only-password' },
+    });
+  });
 });

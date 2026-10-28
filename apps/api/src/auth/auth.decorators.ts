@@ -15,3 +15,12 @@ export const CurrentUser = createParamDecorator(
     return user;
   },
 );
+
+/** Trusted guard context; never accepted from a business request body. */
+export const CurrentSessionId = createParamDecorator(
+  (_data: unknown, context: ExecutionContext): string => {
+    const sessionId = context.switchToHttp().getRequest<AuthenticatedRequest>().sessionId;
+    if (!sessionId) throw new UnauthorizedException('Authentication required.');
+    return sessionId;
+  },
+);

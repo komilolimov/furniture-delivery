@@ -37,7 +37,7 @@ export function ResourceNotice({
         <p className="form-error" role="alert">
           {error}
         </p>
-        <button className="secondary-button" onClick={retry}>
+        <button type="button" className="secondary-button" onClick={retry}>
           Retry
         </button>
       </div>

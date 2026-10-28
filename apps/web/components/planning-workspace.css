@@ -1,0 +1,97 @@
+/* Layout only: calendar internals use FullCalendar v7's semantic hooks in calendar.css. */
+.planning-workspace-layout {
+  display: grid;
+  grid-template-columns: 228px minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
+  min-width: 0;
+}
+.planning-sidebar {
+  min-width: 0;
+  border: 1px solid #e0e6d9;
+  border-radius: 16px;
+  padding: 18px 14px;
+  background: #fffefa;
+}
+.planning-shell .planning-date-input {
+  width: 135px;
+  min-height: 42px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #294b39;
+  font-weight: 500;
+}
+.planning-shell .planning-date-input:focus-visible {
+  outline: 2px solid #739b74;
+  outline-offset: 2px;
+}
+.planning-shell .planning-calendar {
+  margin: 0;
+}
+.planning-complete-list {
+  border-top: 1px solid #e0e6d9;
+}
+.planning-complete-list > summary {
+  list-style: none;
+}
+.planning-complete-list > summary::marker {
+  content: '';
+}
+.planning-complete-list > summary::-webkit-details-marker {
+  display: none;
+}
+.planning-shell.orders-detail-theme .planning-complete-list > summary::after {
+  content: none;
+}
+.planning-complete-list[open] > summary > .planning-complete-list-chevron {
+  transform: rotate(180deg);
+}
+.planning-shell .risk-panel {
+  margin: 4px 0 0;
+  box-shadow: none;
+}
+.planning-shell .risk-panel > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+.planning-shell .risk-panel > ul > li {
+  min-width: 0;
+  border: 1px solid #e5dfcf;
+  background: #fcf8ef;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.planning-shell .risk-panel > ul > li > a {
+  color: #715c34;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.planning-shell .risk-panel > ul > li > ul {
+  padding-left: 16px;
+}
+.planning-shell .risk-panel > ul > li > ul > li {
+  margin-top: 12px;
+}
+@media (max-width: 1200px) {
+  .planning-workspace-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .planning-sidebar {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  .planning-shell .risk-panel > ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

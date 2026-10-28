@@ -1,4 +1,6 @@
 import { resolve } from 'node:path';
+import { randomUUID } from 'node:crypto';
+import { tmpdir } from 'node:os';
 import { config as loadDotEnv } from 'dotenv';
 
 export interface AppConfig {
@@ -11,6 +13,14 @@ export interface AppConfig {
     cookieSecure: boolean;
     loginWindowSeconds: number;
     loginMaxAttempts: number;
+  };
+  storage?: {
+    root: string;
+    imageMaxBytes?: number;
+    pdfMaxBytes?: number;
+    maxPixels?: number;
+    orderMaxFiles?: number;
+    orderMaxBytes?: number;
   };
   database: {
     /** Internal test isolation; not configurable through an untrusted HTTP request. */
@@ -119,6 +129,36 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): AppConfig {
       ),
       loginMaxAttempts: positiveInteger(env.LOGIN_MAX_ATTEMPTS, 10, 100, 'LOGIN_MAX_ATTEMPTS'),
     },
+    storage: {
+      root: env.STORAGE_ROOT
+        ? resolve(env.STORAGE_ROOT)
+        : resolve(__dirname, '../../../../uploads'),
+      imageMaxBytes: positiveInteger(
+        env.STORAGE_IMAGE_MAX_BYTES,
+        10485760,
+        10485760,
+        'STORAGE_IMAGE_MAX_BYTES',
+      ),
+      pdfMaxBytes: positiveInteger(
+        env.STORAGE_PDF_MAX_BYTES,
+        20971520,
+        20971520,
+        'STORAGE_PDF_MAX_BYTES',
+      ),
+      maxPixels: positiveInteger(env.STORAGE_MAX_PIXELS, 40000000, 40000000, 'STORAGE_MAX_PIXELS'),
+      orderMaxFiles: positiveInteger(
+        env.STORAGE_ORDER_MAX_FILES,
+        100,
+        100,
+        'STORAGE_ORDER_MAX_FILES',
+      ),
+      orderMaxBytes: positiveInteger(
+        env.STORAGE_ORDER_MAX_BYTES,
+        262144000,
+        262144000,
+        'STORAGE_ORDER_MAX_BYTES',
+      ),
+    },
     database: {
       host: env.DATABASE_HOST ?? '127.0.0.1',
       port: port(env.DATABASE_PORT, 5432, 'DATABASE_PORT'),
@@ -154,7 +194,7 @@ export function readIntegrationConfig(env: NodeJS.ProcessEnv = process.env): App
       'Integration tests require NODE_ENV=test and a separate TEST_DATABASE_NAME ending in _test.',
     );
   }
-  return readConfig({
+  const result = readConfig({
     NODE_ENV: 'test',
     DATABASE_HOST: env.TEST_DATABASE_HOST,
     DATABASE_PORT: env.TEST_DATABASE_PORT,
@@ -162,4 +202,9 @@ export function readIntegrationConfig(env: NodeJS.ProcessEnv = process.env): App
     DATABASE_USER: env.TEST_DATABASE_USER,
     DATABASE_PASSWORD: env.TEST_DATABASE_PASSWORD,
   });
+  result.storage = {
+    ...result.storage,
+    root: resolve(tmpdir(), 'furniture-delivery-tests', randomUUID()),
+  };
+  return result;
 }

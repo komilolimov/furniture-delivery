@@ -1,6 +1,7 @@
 import { Catch, HttpException } from '@nestjs/common';
 import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import type { Response } from 'express';
+import { PlanningConflict } from '../planning/planning-errors';
 
 /** Never serialize connection errors, stacks, or body-parser excerpts of credentials. */
 @Catch()
@@ -31,6 +32,10 @@ export class ApiExceptionFilter implements ExceptionFilter {
       }
     }
     response.status(status).setHeader('Cache-Control', 'no-store');
-    response.json({ statusCode: status, message });
+    response.json({
+      statusCode: status,
+      message,
+      ...(error instanceof PlanningConflict ? { code: error.code, details: error.details } : {}),
+    });
   }
 }
